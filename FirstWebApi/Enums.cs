@@ -1,10 +1,5 @@
 ﻿namespace FirstWebApi
 {
-	public enum EnumType
-	{
-		TeamNames,
-		TodoItemStatusType,
-	}
 
 	public enum TeamNames
     {
@@ -18,7 +13,7 @@
 		ResiPortal,
     }
 
-	public enum TodoItemStatusType
+	public enum TodoItemStatus
     {
 		New,
 		InProgress,

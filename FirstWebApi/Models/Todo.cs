@@ -14,12 +14,9 @@
 
         public DateTime? DateCompleted { get; set; }
 
-        //replace those two for Enums 
-        public string? TeamName { get; set; }
-        //this will be an ID on the DB, and when returning
-        //using an endpoint, a viewModel will return
-        //the Status code (Taken from EnumTypeItem)
-        public bool IsCompleted { get; set; }
+        public TeamNames? TeamName { get; set; }
+
+        public TodoItemStatus? Status { get; set; }
 
     }
 }

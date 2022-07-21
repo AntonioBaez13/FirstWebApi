@@ -21,7 +21,7 @@ namespace FirstWebApi.Controllers
                     LastName = "Banderas",
                     JoinedHub = new DateTime(2021, 7, 5),
                     CodeReviewer = true,
-                    TeamName = "Daybreak"
+                    TeamName = TeamNames.Daybreak
                 },
                 new Tester
                 {
@@ -30,7 +30,7 @@ namespace FirstWebApi.Controllers
                     LastName = "South",
                     JoinedHub = new DateTime(2019, 2, 7),
                     CodeReviewer = false,
-                    TeamName = "Galaxy"
+                    TeamName = TeamNames.GalaxyAngular
                 },
                 new Tester
                 {
@@ -39,7 +39,7 @@ namespace FirstWebApi.Controllers
                     LastName = "Mcklaine",
                     JoinedHub = new DateTime(2021, 8, 20),
                     CodeReviewer = true,
-                    TeamName = "KnightFall"
+                    TeamName = TeamNames.KnightFall
                 },
                 new Tester
                 {
@@ -48,7 +48,7 @@ namespace FirstWebApi.Controllers
                     LastName = "Heart",
                     JoinedHub = new DateTime(2022, 3, 14),
                     CodeReviewer = false,
-                    TeamName = "Daybreak"
+                    TeamName = TeamNames.Daybreak
                 },
                 new Tester
                 {
@@ -57,7 +57,7 @@ namespace FirstWebApi.Controllers
                     LastName = "Sky",
                     JoinedHub = new DateTime(2018, 6, 28),
                     CodeReviewer = true,
-                    TeamName = "DevOps"
+                    TeamName = TeamNames.ReleaseTeam
                 }
             };
 
