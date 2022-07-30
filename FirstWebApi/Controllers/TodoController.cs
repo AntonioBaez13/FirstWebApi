@@ -111,6 +111,23 @@ namespace FirstWebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Updates the status of a Todo Item
+        /// </summary>
+        /// <param name="id">TodoItem Id</param>
+        /// <param name="status">Status enum value</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}/updateStatus/{status}")]
+        public async Task<IActionResult> UpdateTodoStatus(long id, TodoItemStatus status)
+        {
+            Todo todo = _context.Todo.Where(x => x.Id == id).Single();
+            todo.Status = status;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         private bool TodoExists(long id)
         {
             return (_context.Todo?.Any(e => e.Id == id)).GetValueOrDefault();
