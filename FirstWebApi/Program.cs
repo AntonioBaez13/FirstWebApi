@@ -17,7 +17,8 @@ builder.Logging.AddConsole();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TesterHubContext>(opt =>
-    opt.UseInMemoryDatabase("TesterAppDb"));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("TodoAppDatabase")));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
