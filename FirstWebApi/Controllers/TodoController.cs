@@ -20,10 +20,10 @@ namespace FirstWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Todo>>> GetTodo()
         {
-          if (_context.Todo == null)
-          {
-              return NotFound();
-          }
+            if (_context.Todo == null)
+            {
+                return NotFound();
+            }
             return await _context.Todo.ToListAsync();
         }
 
@@ -31,10 +31,11 @@ namespace FirstWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Todo>> GetTodo(long id)
         {
-          if (_context.Todo == null)
-          {
-              return NotFound();
-          }
+            if (_context.Todo == null)
+            {
+                return NotFound();
+            }
+
             var todo = await _context.Todo.FindAsync(id);
 
             if (todo == null)
@@ -43,6 +44,27 @@ namespace FirstWebApi.Controllers
             }
 
             return todo;
+        }
+
+        /// <summary>
+        /// Get all active items 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="todo"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetActiveTodos")]
+        public async Task<ActionResult<IEnumerable<Todo>>> GetActiveTodos()
+        {
+            if(_context.Todo == null)
+            {
+                return NotFound();
+            }
+
+            var query = await _context.Todo.Where(x => x.Status != TodoItemStatus.Completed)
+                .ToListAsync();
+
+            return query;
         }
 
         // PUT: api/Todo/5
