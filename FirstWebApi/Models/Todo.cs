@@ -16,7 +16,7 @@
 
         public TeamNames? TeamName { get; set; }
 
-        public TodoItemStatus? Status { get; set; }
+        public TodoItemStatus Status { get; set; }
 
     }
 }

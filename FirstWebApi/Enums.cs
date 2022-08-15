@@ -19,5 +19,13 @@
 		InProgress,
 		Completed,
     }
+
+	public enum TaskTimeFrames
+    {
+		Today,
+		Last7Days,
+		Last30Days,
+		AllTime,
+    }
 }
 

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FirstWebApi.DataAccess;
 using FirstWebApi.Models;
+using FirstWebApi.ViewModels;
 
 namespace FirstWebApi.Controllers
 {
@@ -49,8 +50,6 @@ namespace FirstWebApi.Controllers
         /// <summary>
         /// Get all active items 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="todo"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("GetActiveTodos")]
@@ -65,6 +64,50 @@ namespace FirstWebApi.Controllers
                 .ToListAsync();
 
             return query;
+        }
+
+        /// <summary>
+        /// Get an object of all the tasks created within the dates specified
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetTotalCreated")]
+        public async Task<ActionResult<TasksTimeFrameViewModel>> GetTotalCretated(TasksTimeFrameCommand command)
+        {
+
+            DateTime currentDate = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse(command.Date));
+
+            List<TodoItemStatus> query;
+
+            if(command.TimeFrame == TaskTimeFrames.Today.ToString())
+            {
+                query = await _context.Todo.Where(x => x.Created >= currentDate)
+                    .Select(x => x.Status).ToListAsync();
+            }
+            else if(command.TimeFrame == TaskTimeFrames.Last7Days.ToString())
+            {
+                query = await _context.Todo.Where(x => x.Created >= currentDate.AddDays(-7) && x.Created <= currentDate)
+                    .Select(x => x.Status).ToListAsync();
+            }
+            else if(command.TimeFrame == TaskTimeFrames.Last30Days.ToString())
+            {
+                query = await _context.Todo.Where(x => x.Created >= currentDate.AddDays(-30) && x.Created <= currentDate)
+                    .Select(x => x.Status).ToListAsync();
+            }
+            else
+            {
+                query = await _context.Todo.Select(x => x.Status).ToListAsync();
+            }
+
+            TasksTimeFrameViewModel result = new()
+            {
+                TotalCreated = query.Count,
+                New = query.Count(x=> x == TodoItemStatus.New),
+                InProgress = query.Count(x => x == TodoItemStatus.InProgress),
+                Completed = query.Count(x => x == TodoItemStatus.Completed)
+            };
+
+            return result;
         }
 
         // PUT: api/Todo/5
